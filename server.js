@@ -24,7 +24,8 @@ var config = {
       callback();
     }
   },
-  write: function(callback) {
+  write: function(data, callback) {
+    _.extend(config, data);
     var json = JSON.stringify(config);
     fs.writeFile('./config.json', json, function(err) {
       if (err) throw err;
@@ -48,6 +49,14 @@ app.get('/js', function(req, res) {
 });
 
 io.sockets.on('connection', function(socket) {
+  socket.emit('config', config);
+
+  socket.on('config', function(data, fn) {
+    config.write(data, function() {
+      socket.broadcast.emit('config', data);
+      fn();
+    });
+  });
 });
 
 var port = argv.port || 5510;
