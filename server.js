@@ -34,7 +34,7 @@ var config = {
 };
 
 config.read(function() {
-  mpc = mpd.connect({host: config.mpd_host, port: config.mpd_port});
+  mpc = mpd.connect({host: config.mpdHost, port: config.mpdPort});
 });
 
 app.use(express.logger());
