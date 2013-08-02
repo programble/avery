@@ -34,10 +34,6 @@ var config = {
   }
 };
 
-config.read(function() {
-  mpc = mpd.connect({host: config.mpdHost, port: config.mpdPort});
-});
-
 app.use(express.logger());
 
 app.get('/', function(req, res) {
@@ -48,8 +44,24 @@ app.get('/js', function(req, res) {
   res.sendfile(__dirname + '/client.js');
 });
 
+mpd.reconnect = function(fn) {
+  mpd.connected = false;
+  mpc = mpd.connect({host: config.mpdHost, port: config.mpdPort});
+
+  mpc.on('ready', function() {
+    mpd.connected = true;
+    if (fn) fn();
+  });
+
+  mpc.on('error', function(err) {
+    console.log(err);
+  });
+}
+
 io.sockets.on('connection', function(socket) {
   socket.emit('config', config);
+
+  if (!mpd.connected) mpd.reconnect();
 
   socket.on('config', function(data, fn) {
     config.write(data, function() {
@@ -57,7 +69,13 @@ io.sockets.on('connection', function(socket) {
       fn();
     });
   });
+
+  socket.on('reconnect', function(fn) {
+    mpd.reconnect(fn);
+  });
 });
+
+config.read(mpd.reconnect);
 
 var port = argv.port || 5510;
 server.listen(port);

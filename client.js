@@ -27,6 +27,6 @@ $('.setting').change(function() {
 $('#reconnect').click(function() {
   $(this).addClass('disabled');
   socket.emit('reconnect', function() {
-    $(this).removeClass('disabled');
+    $('#reconnect').removeClass('disabled');
   });
 });
