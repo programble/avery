@@ -1,5 +1,5 @@
-function flashGroup(input, klass) {
-  var group = input.parents('.form-group');
+$.fn.flashGroup = function(klass) {
+  var group = this.parents('.form-group');
   group.addClass(klass);
   setTimeout(function() {
     group.removeClass(klass);
@@ -10,17 +10,17 @@ var socket = io.connect();
 
 socket.on('config', function(config) {
   $.each(config, function(k, v) {
-    flashGroup($('#' + k).val(v), 'has-warning');
+    $('#' + k).val(v).flashGroup('has-warning');
   });
 });
 
 $('.setting').change(function() {
   var input = $(this),
-      config = new Object();
+      config = {};
   config[input.attr('id')] = input.val();
 
   socket.emit('config', config, function() {
-    flashGroup(input, 'has-success');
+    input.flashGroup('has-success');
   });
 });
 
