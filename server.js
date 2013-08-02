@@ -18,8 +18,8 @@ app.get('/js', function(req, res) {
 io.sockets.on('connection', function(socket) {
 });
 
-server.listen(5510);
-
+var port = argv.port || 5510;
+server.listen(port);
 if (!argv.headless) {
-  spawn('xdg-open', ['http://localhost:5510']);
+  spawn('xdg-open', ['http://localhost:' + port]);
 }
