@@ -1,9 +1,41 @@
-var argv = require('optimist').argv,
+var _ = require('underscore'),
+    fs = require('fs'),
+    argv = require('optimist').argv,
     spawn = require('child_process').spawn,
     express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(server),
+    mpd = require('mpd'),
+    mpc;
+
+var config = {
+  mpd_host: 'localhost',
+  mpd_port: 6600,
+
+  read: function(callback) {
+    if (fs.existsSync('./config.json')) {
+      fs.readFile('./config.json', function(err, data) {
+        if (err) throw err;
+        _.extend(config, JSON.parse(data));
+        callback();
+      });
+    } else {
+      callback();
+    }
+  },
+  write: function(callback) {
+    var json = JSON.stringify(config);
+    fs.writeFile('./config.json', json, function(err) {
+      if (err) throw err;
+      callback();
+    });
+  }
+};
+
+config.read(function() {
+  mpc = mpd.connect({host: config.mpd_host, port: config.mpd_port});
+});
 
 app.use(express.logger());
 
