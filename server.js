@@ -9,6 +9,8 @@ var _ = require('underscore'),
     mpd = require('mpd'),
     mpc;
 
+// Configuration //
+
 var config = {
   mpdHost: 'localhost',
   mpdPort: 6600,
@@ -34,6 +36,8 @@ var config = {
   }
 };
 
+// HTTP Server //
+
 app.use(express.logger());
 
 app.get('/', function(req, res) {
@@ -43,6 +47,8 @@ app.get('/', function(req, res) {
 app.get('/js', function(req, res) {
   res.sendfile(__dirname + '/client.js');
 });
+
+// MPD Connection //
 
 mpd.reconnect = function(fn) {
   mpd.connected = false;
@@ -57,6 +63,8 @@ mpd.reconnect = function(fn) {
     console.log(err);
   });
 }
+
+// Web Sockets //
 
 io.sockets.on('connection', function(socket) {
   socket.emit('config', config);
@@ -75,10 +83,13 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
+// Start //
+
 config.read(mpd.reconnect);
 
 var port = argv.port || 5510;
 server.listen(port);
+
 if (!argv.headless) {
   spawn('xdg-open', ['http://localhost:' + port]);
 }
