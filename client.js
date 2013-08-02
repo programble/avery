@@ -24,9 +24,20 @@ $('.setting').change(function() {
   });
 });
 
+socket.on('mpd connection', function(err) {
+  $('#reconnect').removeClass('disabled');
+  if (err) {
+    $('#reconnect').removeClass('btn-success').addClass('btn-danger');
+    $('#reconnect-error').html(err);
+    $('#settings-tab').tab('show');
+  } else {
+    $('#reconnect').removeClass('btn-danger').addClass('btn-success');
+    $('#reconnect-error').empty();
+  }
+});
+
 $('#reconnect').click(function() {
   $(this).addClass('disabled');
-  socket.emit('reconnect', function() {
-    $('#reconnect').removeClass('disabled');
-  });
+  // TODO: Disable everything that requires a connection
+  socket.emit('reconnect');
 });

@@ -6,6 +6,7 @@ var _ = require('underscore'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
+    errno = require('errno'),
     mpd = require('mpd'),
     mpc;
 
@@ -56,10 +57,14 @@ mpd.reconnect = function(fn) {
 
   mpc.on('ready', function() {
     mpd.connected = true;
+    io.sockets.emit('mpd connection');
     if (fn) fn();
   });
 
   mpc.on('error', function(err) {
+    if (!mpd.connected) {
+      io.sockets.emit('mpd connection', 'Error: ' + errno.code[err.code].description);
+    }
     console.log(err);
   });
 }
