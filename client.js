@@ -23,3 +23,10 @@ $('.setting').change(function() {
     flashGroup(input, 'has-success');
   });
 });
+
+$('#reconnect').click(function() {
+  $(this).addClass('disabled');
+  socket.emit('reconnect', function() {
+    $(this).removeClass('disabled');
+  });
+});
