@@ -10,8 +10,8 @@ var _ = require('underscore'),
     mpc;
 
 var config = {
-  mpd_host: 'localhost',
-  mpd_port: 6600,
+  mpdHost: 'localhost',
+  mpdPort: 6600,
 
   read: function(callback) {
     if (fs.existsSync('./config.json')) {
