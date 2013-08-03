@@ -10,6 +10,29 @@ var _ = require('underscore'),
     mpd = require('mpd'),
     mpc;
 
+// MPD Parsing //
+
+mpd.parseObject = function(data) {
+  var obj = {};
+  data.split('\n').forEach(function(line) {
+    var sep = line.indexOf(': ');
+    if (sep != -1)
+      obj[line[0].toLowerCase() + line.slice(1, sep)] = line.slice(sep + 2);
+  });
+  return obj;
+}
+
+// The MPD lib actually sucks so here are some convenience methods
+mpd.prototype.cmd = function() {
+  var params = _.toArray(arguments),
+      cmd = _.first(params),
+      fn = _.last(params),
+      args = _.rest(_.initial(params));
+  this.sendCommand(mpd.cmd(cmd, args), function(err, data) {
+    fn(err, err ? data : mpd.parseObject(data));
+  });
+}
+
 // Configuration //
 
 var config = {
@@ -60,7 +83,20 @@ mpd.reconnect = function(fn) {
     if (!mpd.connected) {
       io.sockets.emit('mpd connection', 'Error: ' + errno.code[err.code].description);
     }
-    console.log(err);
+    if (fn) fn(err);
+  });
+
+  mpc.on('system-player', mpd.poll);
+}
+
+mpd.poll = function() {
+  if (!mpd.connected) return;
+
+  mpc.cmd('status', function(err, data) {
+    io.sockets.emit('mpd status', data);
+  });
+  mpc.cmd('currentsong', function(err, data) {
+    io.sockets.emit('mpd currentsong', data);
   });
 }
 
@@ -69,7 +105,8 @@ mpd.reconnect = function(fn) {
 io.sockets.on('connection', function(socket) {
   socket.emit('config', config);
 
-  if (!mpd.connected) mpd.reconnect();
+  mpd.poll();
+  if (!mpd.connected) mpd.reconnect(mpd.poll);
 
   socket.on('config', function(data, fn) {
     config.write(data, function() {
