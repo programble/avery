@@ -29,7 +29,7 @@ mpd.prototype.cmd = function() {
       fn = _.last(params),
       args = _.rest(_.initial(params));
   this.sendCommand(mpd.cmd(cmd, args), function(err, data) {
-    fn(err, err ? data : mpd.parseObject(data));
+    if (_.isFunction(fn)) fn(err, err ? data : mpd.parseObject(data));
   });
 }
 
@@ -75,13 +75,13 @@ mpd.reconnect = function(fn) {
 
   mpc.on('ready', function() {
     mpd.connected = true;
-    io.sockets.emit('mpd connection');
+    io.sockets.emit('mpd connect');
     if (fn) fn();
   });
 
   mpc.on('error', function(err) {
     if (!mpd.connected) {
-      io.sockets.emit('mpd connection', 'Error: ' + errno.code[err.code].description);
+      io.sockets.emit('mpd connect', 'Error: ' + errno.code[err.code].description);
     }
     if (fn) fn(err);
   });
@@ -105,8 +105,12 @@ mpd.poll = function() {
 io.sockets.on('connection', function(socket) {
   socket.emit('config', config);
 
-  mpd.poll();
-  if (!mpd.connected) mpd.reconnect(mpd.poll);
+  if (mpd.connected) {
+    socket.emit('mpd connect');
+    mpd.poll();
+  } else {
+    mpd.reconnect(mpd.poll);
+  }
 
   socket.on('config', function(data, fn) {
     config.write(data, function() {
