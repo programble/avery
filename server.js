@@ -39,15 +39,10 @@ var config = {
 
 // HTTP Server //
 
-app.use(express.logger());
-
-app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/client.html');
-});
-
-app.get('/js', function(req, res) {
-  res.sendfile(__dirname + '/client.js');
-});
+app
+  .use(express.logger())
+  .get('/', function(req, res) { res.sendfile(__dirname + '/client.html'); })
+  .get('/js', function(req, res) { res.sendfile(__dirname + '/client.js'); });
 
 // MPD Connection //
 
