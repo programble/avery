@@ -14,6 +14,14 @@ $.fn.enable = function() {
   return this;
 }
 
+$.fn.fadeIn = function() {
+  return this.addClass('in');
+}
+
+$.fn.fadeOut = function() {
+  return this.removeClass('in');
+}
+
 $.fn.swapClass = function(a, b) {
   return this.removeClass(a).addClass(b);
 }
@@ -52,6 +60,14 @@ socket.on('mpd connect', function(err) {
   } else {
     reconnect.swapClass('btn-danger', 'btn-success');
     error.empty();
+  }
+});
+
+socket.on('mpd status', function(data) {
+  if (data.state == 'stop') {
+    $('#playback-bar').fadeOut();
+  } else {
+    $('#playback-bar').fadeIn();
   }
 });
 
