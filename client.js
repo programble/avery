@@ -73,6 +73,11 @@ socket.on('mpd status', function(data) {
   $('#pause i').attr('class', (data.state == 'pause') ? 'icon-play' : 'icon-pause');
 });
 
+socket.on('mpd currentsong', function(data) {
+  $('#playback-title').html(data.title);
+  $('#playback-artist').html(data.artist);
+});
+
 // UI Events //
 
 $('.setting').change(function() {
