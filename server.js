@@ -134,8 +134,8 @@ io.sockets.on('connection', function(socket) {
     });
   });
 
-  socket.on('reconnect', function(fn) {
-    mpd.reconnect(fn);
+  socket.on('reconnect', function() {
+    mpd.reconnect(mpd.poll);
   });
 });
 
