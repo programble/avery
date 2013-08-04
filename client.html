@@ -12,12 +12,19 @@
       body { padding: 10px 0 70px; }
       a { cursor: pointer; }
       .tab-content { padding-top: 10px; }
-      #toggle { width: 42px; }
+      #pause { width: 42px; }
     </style>
   </head>
   <body>
-    <div id="playback-bar" class="navbar navbar-fixed-bottom fade">
+    <div id="playback-bar" class="navbar navbar-fixed-bottom navbar-inverse fade">
       <div class="container">
+        <div class="row">
+          <div class="col-lg-1">
+            <a id="pause" class="btn btn-primary navbar-btn">
+              <i class="icon-pause"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 

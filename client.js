@@ -69,6 +69,8 @@ socket.on('mpd status', function(data) {
   } else {
     $('#playback-bar').fadeIn();
   }
+
+  $('#pause i').attr('class', (data.state == 'pause') ? 'icon-play' : 'icon-pause');
 });
 
 // UI Events //
