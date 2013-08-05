@@ -8,7 +8,7 @@ app.use(express.logger());
 _.each({
   '/': 'ui.html',
   '/js/jquery': 'jquery.js',
-  '/js/mpd': 'mpd.js',
+  '/js/server': 'server.js',
   '/js/ui': 'ui.js'
 }, function(file, url) {
   var filepath = path.normalize(__dirname + '/../client/' + file);
