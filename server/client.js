@@ -11,8 +11,9 @@ _.each({
   '/js/mpd': 'mpd.js',
   '/js/ui': 'ui.js'
 }, function(file, url) {
+  var filepath = path.normalize(__dirname + '/../client/' + file);
   app.get(url, function(req, res) {
-    res.sendfile(path.normalize(__dirname + '/../client/' + file));
+    res.sendfile(filepath);
   });
 });
 
