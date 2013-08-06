@@ -11,6 +11,7 @@ function poll() {
 
   mpc.cmd('status', function(err, data) {
     // TODO: Handle error
+    mpc.state = data.state
     io.sockets.emit('mpd status', data);
   });
   mpc.cmd('currentsong', function(err, data) {
@@ -59,6 +60,10 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('reconnect', function() {
     reconnect(poll);
+  });
+
+  socket.on('pause', function() {
+    mpc.cmd('pause', +(mpc.state == 'play'), null); // FIXME: null
   });
 });
 

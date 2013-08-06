@@ -12,3 +12,7 @@ $('#reconnect').click(function() {
   $('#playback-bar').fadeOut();
   socket.emit('reconnect');
 });
+
+$('#pause').click(function() {
+  socket.emit('pause');
+});
