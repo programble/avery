@@ -63,7 +63,7 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('pause', function() {
-    mpc.cmd('pause', +(mpc.state == 'play'), null); // FIXME: null
+    mpc.cmd('pause', +(mpc.state == 'play'));
   });
 });
 

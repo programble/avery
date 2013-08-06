@@ -28,12 +28,11 @@ mpd.parse = function(data) {
 
 // The MPD lib actually sucks so here are some convenience methods
 mpd.prototype.cmd = function() {
-  var params = _.toArray(arguments),
-      cmd = _.first(params),
-      fn = _.last(params),
-      args = _.rest(_.initial(params));
+  var args = _.toArray(arguments),
+      cmd = args.shift(),
+      fn = _.isFunction(_.last(args)) ? args.pop() : null;
   this.sendCommand(mpd.cmd(cmd, args), function(err, data) {
-    if (_.isFunction(fn)) fn(err, err ? data : mpd.parse(data));
+    if (fn) fn(err, err ? data : mpd.parse(data));
   });
 }
 
