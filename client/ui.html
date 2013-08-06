@@ -12,26 +12,20 @@
       body { padding: 10px 0 70px; }
       a { cursor: pointer; }
       .tab-content { padding-top: 10px; }
-      #pause { width: 42px; }
+      #pause { width: 42px; float: left; margin-right: 15px; }
     </style>
   </head>
   <body>
     <div id="playback-bar" class="navbar navbar-fixed-bottom navbar-inverse fade">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-1 text-center">
-            <a id="pause" class="btn btn-primary navbar-btn">
-              <i class="icon-pause"></i>
-            </a>
-          </div>
-          <div class="col-lg-11">
-            <p class="navbar-text">
-              <strong id="playback-title"></strong>
-              —
-              <span id="playback-artist"></span>
-            </p>
-          </div>
-        </div>
+        <a id="pause" class="btn btn-primary navbar-btn">
+          <i class="icon-pause"></i>
+        </a>
+        <p class="navbar-text">
+          <strong id="playback-title"></strong>
+          —
+          <span id="playback-artist"></span>
+        </p>
       </div>
     </div>
 
