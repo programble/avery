@@ -1,12 +1,13 @@
 $('.setting').change(function() {
   var input = $(this),
-      config = {};
+      key = input.prop('id'),
+      delta = {};
   if (input.is(':checkbox')) {
-    config[input.prop('id')] = input.prop('checked');
+    delta[key] = config[key] = input.prop('checked');
   } else {
-    config[input.prop('id')] = input.val();
+    delta[key] = config[key] = input.val();
   }
-  socket.emit('config', config, function() {
+  socket.emit('config', delta, function() {
     input.flashGroup('has-success');
   });
 });

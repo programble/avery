@@ -1,11 +1,13 @@
-var socket = io.connect();
+var socket = io.connect(),
+    config = {};
 
 socket.on('connect', function() {
   $('.setting').enable();
 });
 
-socket.on('config', function(config) {
-  $.each(config, function(k, v) {
+socket.on('config', function(data) {
+  $.each(data, function(k, v) {
+    config[k] = v;
     var input = $('#' + k);
     if (input.is(':checkbox')) {
       input.prop('checked', v);
