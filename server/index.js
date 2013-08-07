@@ -17,7 +17,7 @@ function pollStatus(force) {
         io.sockets.emit('mpd state', data.state);
       }
 
-      if (force || data.time != mpc.lastTime) {
+      if (data.time && (force || data.time != mpc.lastTime)) {
         mpc.lastTime = data.time;
         var time = data.time.split(':');
         io.sockets.emit('mpd time', time[0], time[1]);
