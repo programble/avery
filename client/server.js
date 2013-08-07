@@ -24,17 +24,14 @@ socket.on('mpd connect', function(err) {
   }
 });
 
-socket.on('mpd status', function(data) {
-  if (data.state == 'stop') {
-    $('#playback-bar').fadeOut();
-  } else {
-    $('#playback-bar').fadeIn();
-  }
+socket.on('mpd state', function(state) {
+  if (state == 'stop') return $('#playback-bar').fadeOut();
 
-  $('#pause i').attr('class', (data.state == 'pause') ? 'icon-play' : 'icon-pause');
+  $('#playback-bar').fadeIn();
+  $('#pause i').attr('class', state == 'play' ? 'icon-pause' : 'icon-play');
 });
 
-socket.on('mpd currentsong', function(data) {
-  $('#playback-title').html(data.title);
-  $('#playback-artist').html(data.artist);
+socket.on('mpd current', function(track) {
+  $('#playback-title').html(track.title);
+  $('#playback-artist').html(track.artist);
 });
