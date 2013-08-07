@@ -7,20 +7,27 @@ var config = require('./config'),
     mpc, connected;
 
 function pollStatus() {
+  if (!connected) return;
   mpc.cmd('status', function(err, data) {
     if (err) {
       io.sockets.emit('mpd error', err);
     } else {
-      mpc.state = data.state;
-      io.sockets.emit('mpd state', mpc.state);
+      if (data.state != mpc.lastState) {
+        mpc.lastState = data.state;
+        io.sockets.emit('mpd state', data.state);
+      }
 
-      var time = data.time.split(':');
-      io.sockets.emit('mpd time', time[0], time[1]);
+      if (data.time != mpc.lastTime) {
+        mpc.lastTime = data.time;
+        var time = data.time.split(':');
+        io.sockets.emit('mpd time', time[0], time[1]);
+      }
     }
   });
 }
 
 function pollCurrent() {
+  if (!connected) return;
   mpc.cmd('currentsong', function(err, data) {
     if (err) {
       io.sockets.emit('mpd error', err);
@@ -79,11 +86,12 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('pause', function() {
-    mpc.cmd('pause', +(mpc.state == 'play'));
+    mpc.cmd('pause', +(mpc.lastState == 'play'));
   });
 });
 
 module.exports = function(port) {
   server.listen(port);
   config.read(reconnect);
+  setInterval(pollStatus, 1000);
 }

@@ -35,3 +35,8 @@ socket.on('mpd current', function(track) {
   $('#playback-title').html(track.title);
   $('#playback-artist').html(track.artist);
 });
+
+socket.on('mpd time', function(elapsed, total) {
+  $('#playback-elapsed').html(elapsed); // TODO: Format duration
+  $('#playback-total').html(total);
+});
