@@ -6,18 +6,18 @@ var config = require('./config'),
     mpd = require('./mpd'),
     mpc, connected;
 
-function pollStatus() {
+function pollStatus(force) {
   if (!connected) return;
   mpc.cmd('status', function(err, data) {
     if (err) {
       io.sockets.emit('mpd error', err);
     } else {
-      if (data.state != mpc.lastState) {
+      if (force || data.state != mpc.lastState) {
         mpc.lastState = data.state;
         io.sockets.emit('mpd state', data.state);
       }
 
-      if (data.time != mpc.lastTime) {
+      if (force || data.time != mpc.lastTime) {
         mpc.lastTime = data.time;
         var time = data.time.split(':');
         io.sockets.emit('mpd time', time[0], time[1]);
@@ -37,10 +37,12 @@ function pollCurrent() {
   });
 }
 
-function pollAll() {
-  pollStatus();
-  pollCurrent();
+function pollAll(force) {
+  pollStatus(force);
+  pollCurrent(force);
 }
+
+function pollAllForce() { pollAll(true); }
 
 function reconnect(fn) {
   connected = false;
@@ -69,7 +71,7 @@ io.sockets.on('connection', function(socket) {
 
   if (connected) {
     socket.emit('mpd connect');
-    pollAll();
+    pollAllForce();
   } else {
     reconnect(pollAll);
   }
