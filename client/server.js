@@ -6,7 +6,13 @@ socket.on('connect', function() {
 
 socket.on('config', function(config) {
   $.each(config, function(k, v) {
-    $('#' + k).val(v).flashGroup('has-warning');
+    var input = $('#' + k);
+    if (input.is(':checkbox')) {
+      input.prop('checked', v);
+    } else {
+      input.val(v);
+    }
+    input.flashGroup('has-warning');
   });
 });
 

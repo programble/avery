@@ -1,7 +1,11 @@
 $('.setting').change(function() {
   var input = $(this),
       config = {};
-  config[input.attr('id')] = input.val();
+  if (input.is(':checkbox')) {
+    config[input.prop('id')] = input.prop('checked');
+  } else {
+    config[input.prop('id')] = input.val();
+  }
   socket.emit('config', config, function() {
     input.flashGroup('has-success');
   });
