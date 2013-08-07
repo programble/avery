@@ -6,18 +6,33 @@ var config = require('./config'),
     mpd = require('./mpd'),
     mpc, connected;
 
-function poll() {
-  if (!connected) return;
-
+function pollStatus() {
   mpc.cmd('status', function(err, data) {
-    // TODO: Handle error
-    mpc.state = data.state
-    io.sockets.emit('mpd status', data);
+    if (err) {
+      io.sockets.emit('mpd error', err);
+    } else {
+      mpc.state = data.state;
+      io.sockets.emit('mpd state', mpc.state);
+
+      var time = data.time.split(':');
+      io.sockets.emit('mpd time', time[0], time[1]);
+    }
   });
+}
+
+function pollCurrent() {
   mpc.cmd('currentsong', function(err, data) {
-    // TODO: Handle error
-    io.sockets.emit('mpd currentsong', data);
+    if (err) {
+      io.sockets.emit('mpd error', err);
+    } else {
+      io.sockets.emit('mpd current', data);
+    }
   });
+}
+
+function pollAll() {
+  pollStatus();
+  pollCurrent();
 }
 
 function reconnect(fn) {
@@ -34,11 +49,12 @@ function reconnect(fn) {
     if (!connected) {
       io.sockets.emit('mpd connect', 'Error: ' + errno.code[err.code].description);
       if (fn) fn(err);
+    } else {
+      io.sockets.emit('mpd error', err);
     }
-    // TODO: Report error
   });
 
-  mpc.on('system-player', poll);
+  mpc.on('system-player', pollAll);
 }
 
 io.sockets.on('connection', function(socket) {
@@ -46,9 +62,9 @@ io.sockets.on('connection', function(socket) {
 
   if (connected) {
     socket.emit('mpd connect');
-    poll();
+    pollAll();
   } else {
-    reconnect(poll);
+    reconnect(pollAll);
   }
 
   socket.on('config', function(data, fn) {
@@ -59,7 +75,7 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('reconnect', function() {
-    reconnect(poll);
+    reconnect(pollAll);
   });
 
   socket.on('pause', function() {
