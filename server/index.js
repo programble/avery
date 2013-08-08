@@ -8,7 +8,7 @@ var config = require('./config'),
 
 function pollStatus(force) {
   if (!connected) return;
-  mpc.cmd('status', function(err, data) {
+  mpc.objCmd('status', function(err, data) {
     if (err) {
       io.sockets.emit('mpd error', err);
     } else {
@@ -28,7 +28,7 @@ function pollStatus(force) {
 
 function pollCurrent() {
   if (!connected) return;
-  mpc.cmd('currentsong', function(err, data) {
+  mpc.objCmd('currentsong', function(err, data) {
     if (err) {
       io.sockets.emit('mpd error', err);
     } else {
