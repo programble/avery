@@ -44,7 +44,16 @@ socket.on('mpd current', function(track) {
   $('#playback-artist').html(track.artist);
 });
 
+function formatDuration(secs) {
+  var mins = Math.floor(secs / 60),
+      rsecs = secs % 60,
+      s = mins + ':';
+  if (rsecs.toString().length == 1) s += '0';
+  s += rsecs;
+  return s;
+}
+
 socket.on('mpd time', function(elapsed, total) {
-  $('#playback-elapsed').html(elapsed); // TODO: Format duration
-  $('#playback-total').html(total);
+  $('#playback-elapsed').html(formatDuration(elapsed));
+  $('#playback-total').html(formatDuration(total));
 });
