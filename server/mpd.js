@@ -13,6 +13,7 @@ function parseObject(data) {
   var obj = {};
   data.trim().split('\n').forEach(function(line) {
     var pair = parseLine(line);
+    if (!pair) return obj;
     obj[pair[0]] = pair[1];
   });
   return obj;
@@ -24,6 +25,7 @@ function parseList(data) {
       obj;
   data.trim().split('\n').forEach(function(line) {
     var pair = parseLine(line);
+    if (!pair) return list;
     if (pair[0] == firstKey) {
       if (obj) list.push(obj);
       obj = {};
