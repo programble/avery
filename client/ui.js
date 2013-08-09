@@ -21,3 +21,8 @@ $('#reconnect').click(function() {
 $('#pause').click(function() {
   socket.emit('pause');
 });
+
+$('#playback-total').click(function() {
+  $('#timeLeft').prop('checked', !config.timeLeft).change();
+  socket.emit('status');
+});

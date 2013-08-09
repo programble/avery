@@ -86,6 +86,10 @@ io.sockets.on('connection', function(socket) {
     reconnect(pollAll);
   });
 
+  socket.on('status', function() {
+    pollStatus(true);
+  });
+
   socket.on('pause', function() {
     mpc.cmd('pause', +(mpc.lastState == 'play'));
   });
