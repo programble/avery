@@ -56,4 +56,5 @@ function formatDuration(secs) {
 socket.on('mpd time', function(elapsed, total) {
   $('#playback-elapsed').html(formatDuration(elapsed));
   $('#playback-total').html(formatDuration(total));
+  $('#playback-progress').width(elapsed / total * 100 + '%');
 });
