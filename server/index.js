@@ -17,10 +17,9 @@ function pollStatus(force) {
         io.sockets.emit('mpd state', data.state);
       }
 
-      if (data.time && (force || data.time != mpc.lastTime)) {
-        mpc.lastTime = data.time;
-        var time = data.time.split(':');
-        io.sockets.emit('mpd time', time[0], time[1]);
+      if (data.time && (force || data.elapsed != mpc.lastTime)) {
+        mpc.lastTime = data.elapsed;
+        io.sockets.emit('mpd time', data.elapsed, data.time.split(':')[1]);
       }
     }
   });

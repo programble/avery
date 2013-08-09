@@ -46,7 +46,7 @@ socket.on('mpd current', function(track) {
 
 function formatDuration(secs) {
   var mins = Math.floor(secs / 60),
-      rsecs = secs % 60,
+      rsecs = Math.floor(secs % 60),
       s = mins + ':';
   if (rsecs.toString().length == 1) s += '0';
   s += rsecs;
