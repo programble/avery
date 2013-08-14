@@ -30,7 +30,7 @@ function pollCurrent() {
   mpc.objCmd('currentsong', function(err, data) {
     if (err) {
       io.sockets.emit('mpd error', err);
-    } else if (Object.keys(data).length) {
+    } else if (mpc.lastState != 'stop') {
       io.sockets.emit('mpd current', data);
     }
   });
