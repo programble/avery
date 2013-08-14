@@ -33,7 +33,10 @@ socket.on('mpd connect', function(err) {
 });
 
 socket.on('mpd state', function(state) {
-  if (state == 'stop') return $('#playback-bar').fadeOut();
+  if (state == 'stop') {
+    document.title = 'Avery';
+    return $('#playback-bar').fadeOut();
+  }
 
   $('#playback-bar').fadeIn();
   $('#pause i').attr('class', state == 'play' ? 'icon-pause' : 'icon-play');
@@ -42,6 +45,7 @@ socket.on('mpd state', function(state) {
 socket.on('mpd current', function(track) {
   $('#playback-title').html(track.title);
   $('#playback-artist').html(track.artist);
+  document.title = track.title + ' — ' + track.artist;
 });
 
 function formatDuration(secs) {
