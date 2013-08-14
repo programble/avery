@@ -35,8 +35,11 @@ socket.on('mpd connect', function(err) {
 socket.on('mpd state', function(state) {
   if (state == 'stop') {
     document.title = 'Avery';
+    favicon(stopFavicon);
     return $('#playback-bar').fadeOut();
   }
+
+  favicon(state == 'play' ? playFavicon : pauseFavicon);
 
   $('#playback-bar').fadeIn();
   $('#pause i').attr('class', state == 'play' ? 'icon-pause' : 'icon-play');

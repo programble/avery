@@ -8,6 +8,7 @@ app.use(express.logger());
 _.each({
   '/': 'ui.html',
   '/js/jquery': 'jquery.js',
+  '/js/favicon': 'favicon.js',
   '/js/server': 'server.js',
   '/js/ui': 'ui.js'
 }, function(file, url) {
