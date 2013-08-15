@@ -10,9 +10,11 @@ config = {
       fs.readFile('./config.json', function(err, data) {
         if (err) throw err;
         _.extend(config, JSON.parse(data));
+        fn();
       });
+    } else {
+      fn();
     }
-    fn();
   },
 
   write: function(data, fn) {
