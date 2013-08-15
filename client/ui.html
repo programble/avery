@@ -11,10 +11,10 @@
     <link id="favicon" rel="icon" type="image/png">
 
     <style>
-      body { padding: 10px 0 70px; cursor: default; }
+      body { padding: 70px 0; cursor: default; }
       a { cursor: pointer; }
-      .tab-content { padding-top: 10px; }
       .navbar-progress { float: left; margin: 15px 5px; width: 200px;}
+      .navbar-nav { width: 100%; }
       #pause { width: 38px; }
       #playback-progress { transition: none; }
     </style>
@@ -46,38 +46,41 @@
       </div>
     </div>
 
+    <div class="navbar navbar-fixed-top">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li class="active"><a data-toggle="tab" data-target="#playlist">
+            <i class="icon-list"></i> Playlist
+          </a></li>
+
+          <li><a data-toggle="tab" data-target="#library">
+            <i class="icon-book"></i> Library
+          </a></li>
+
+          <li class="dropdown navbar-right">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="icon-cogs"></i>
+            </a>
+
+            <ul class="dropdown-menu pull-right">
+              <li><a id="settings-tab" data-toggle="tab" data-target="#settings">
+                <i class="icon-fixed-width icon-cog"></i> Settings
+              </a></li>
+
+              <li><a data-toggle="tab" data-target="#help">
+                <i class="icon-fixed-width icon-question-sign"></i> Help
+              </a></li>
+
+              <li><a data-toggle="tab" data-target="#about">
+                <i class="icon-fixed-width icon-info-sign"></i> About
+              </a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container">
-      <ul class="nav nav-pills">
-        <li class="active"><a data-toggle="pill" data-target="#playlist">
-          <i class="icon-list"></i> Playlist
-          <span id="playlist-length" class="badge"></span>
-        </a></li>
-
-        <li><a data-toggle="pill" data-target="#library">
-          <i class="icon-book"></i> Library
-        </a></li>
-
-        <li class="pull-right dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-cogs"></i>
-          </a>
-
-          <ul class="dropdown-menu">
-            <li><a id="settings-tab" data-toggle="pill" data-target="#settings">
-              <i class="icon-fixed-width icon-cog"></i> Settings
-            </a></li>
-
-            <li><a data-toggle="pill" data-target="#help">
-              <i class="icon-fixed-width icon-question-sign"></i> Help
-            </a></li>
-
-            <li><a data-toggle="pill" data-target="#about">
-              <i class="icon-fixed-width icon-info-sign"></i> About
-            </a></li>
-          </ul>
-        </li>
-      </ul>
-
       <div class="tab-content">
         <div id="playlist" class="tab-pane active fade in">
         </div>
