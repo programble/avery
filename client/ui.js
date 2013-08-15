@@ -25,3 +25,10 @@ $('#playback-total').click(function() {
   $('#timeLeft').prop('checked', !config.timeLeft).change();
   socket.emit('status');
 });
+
+['random', 'repeat', 'consume'].forEach(function(btn) {
+  $('#' + btn).click(function() {
+    $(this).toggleClass('active');
+    socket.emit(btn);
+  });
+});

@@ -2,6 +2,7 @@ var config = require('./config'),
     client = require('./client'),
     server = require('http').createServer(client),
     io = require('socket.io').listen(server),
+    _ = require('underscore'),
     errno = require('errno'),
     mpd = require('./mpd'),
     mpc, connected;
@@ -15,6 +16,14 @@ function pollStatus(force) {
       if (force || data.state != mpc.lastState) {
         mpc.lastState = data.state;
         io.sockets.emit('mpd state', data.state);
+      }
+
+      var mode = _.pick(data, 'random', 'repeat', 'consume');
+      for (var key in mode)
+        mode[key] = !!+mode[key];
+      if (force || !_.isEqual(mode, mpc.lastMode)) {
+        mpc.lastMode = mode;
+        io.sockets.emit('mpd mode', mode);
       }
 
       if (data.time && (force || data.elapsed != mpc.lastTime)) {
@@ -65,6 +74,7 @@ function reconnect(fn) {
   });
 
   mpc.on('system-player', pollAll);
+  mpc.on('system-options', pollStatus);
 }
 
 io.sockets.on('connection', function(socket) {
@@ -94,6 +104,12 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('pause', function() {
     mpc.cmd('pause', +(mpc.lastState == 'play'));
+  });
+
+  ['random', 'repeat', 'consume'].forEach(function(mode) {
+    socket.on(mode, function() {
+      mpc.cmd(mode, +!mpc.lastMode[mode]);
+    });
   });
 });
 

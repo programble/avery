@@ -45,6 +45,12 @@ socket.on('mpd state', function(state) {
   $('#pause i').attr('class', state == 'play' ? 'icon-pause' : 'icon-play');
 });
 
+socket.on('mpd mode', function(mode) {
+  $.each(mode, function(id, active) {
+    $('#' + id).toggleClass('active', active);
+  });
+});
+
 socket.on('mpd current', function(track) {
   $('#playback-title').html(track.title);
   $('#playback-artist').html(track.artist);
