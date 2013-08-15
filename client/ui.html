@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Avery</title>
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,30 +14,33 @@
       body { padding: 10px 0 70px; cursor: default; }
       a { cursor: pointer; }
       .tab-content { padding-top: 10px; }
-      .inline-all * { display: inline-block; }
-      .navbar-progress { vertical-align: middle; margin: 0; width: 200px; }
-      #pause { width: 42px; float: left; margin-right: 15px; }
+      .navbar-progress { float: left; margin: 15px 5px; width: 200px;}
+      #pause { width: 38px; }
       #playback-progress { transition: none; }
     </style>
   </head>
   <body>
     <div id="playback-bar" class="navbar navbar-fixed-bottom navbar-inverse fade">
       <div class="container">
-        <a id="pause" class="btn btn-primary navbar-btn">
-          <i class="icon-pause"></i>
-        </a>
+        <div class="navbar-header">
+          <a id="pause" class="btn btn-primary navbar-btn">
+            <i class="icon-pause"></i>
+          </a>
+        </div>
 
-        <p class="navbar-text pull-left">
+        <p class="navbar-text">
           <strong id="playback-title"></strong>
           —
           <span id="playback-artist"></span>
         </p>
 
-        <div class="pull-right inline-all">
+        <div class="navbar-right">
           <p id="playback-elapsed" class="navbar-text"></p>
+
           <div class="progress navbar-progress">
             <div id="playback-progress" class="progress-bar"></div>
           </div>
+
           <p id="playback-total" class="navbar-text"></p>
         </div>
       </div>
@@ -88,21 +91,21 @@
               <legend>Music Player Daemon</legend>
 
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="mpdHost">Host</label>
-                <div class="col-lg-3">
+                <label class="col-md-2 control-label" for="mpdHost">Host</label>
+                <div class="col-md-3">
                   <input id="mpdHost" type="text" class="setting form-control" disabled>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-lg-2 control-label" for="mpdPort">Port</label>
-                <div class="col-lg-3">
+                <label class="col-md-2 control-label" for="mpdPort">Port</label>
+                <div class="col-md-3">
                   <input id="mpdPort" type="text" class="setting form-control" disabled>
                 </div>
               </div>
 
               <div class="form-group">
-                <div class="col-offset-2 col-lg-10">
+                <div class="col-md-offset-2 col-md-10">
                   <a id="reconnect" class="btn btn-success disabled">
                     <i class="icon-refresh"></i> Reconnect
                   </a>
@@ -117,7 +120,7 @@
               <legend>Interface</legend>
 
               <div class="form-group">
-                <div class="col-offset-2 col-lg-10">
+                <div class="col-md-offset-2 col-md-10">
                   <div class="checkbox">
                     <label class="control-label">
                       <input id="timeLeft" type="checkbox" class="setting" disabled>
@@ -150,7 +153,7 @@
     </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/jquery"></script>
     <script src="/js/favicon"></script>
