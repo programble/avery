@@ -14,7 +14,6 @@ $('.setting').change(function() {
 
 $('#reconnect').click(function() {
   $(this).disable();
-  $('#playback-bar').fadeOut();
   socket.emit('reconnect');
 });
 

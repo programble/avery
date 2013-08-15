@@ -44,6 +44,8 @@ function pollAll(force) {
 function pollAllForce() { pollAll(true); }
 
 function reconnect(fn) {
+  io.sockets.emit('mpd state', 'stop');
+
   connected = false;
   mpc = mpd.connect({host: config.mpdHost, port: config.mpdPort});
 
