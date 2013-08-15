@@ -15,20 +15,18 @@
       a { cursor: pointer; }
       .navbar-progress { float: left; margin: 15px 5px; width: 200px;}
       .navbar-nav { width: 100%; }
-      #pause { width: 38px; }
+      #pause { width: 38px; margin-right: 15px; }
       #playback-progress { transition: none; }
     </style>
   </head>
   <body>
     <div id="playback-bar" class="navbar navbar-fixed-bottom navbar-inverse fade">
       <div class="container">
-        <div class="navbar-header">
-          <a id="pause" class="btn btn-primary navbar-btn">
-            <i class="icon-pause"></i>
-          </a>
-        </div>
+        <a id="pause" class="btn btn-primary navbar-btn navbar-left">
+          <i class="icon-pause"></i>
+        </a>
 
-        <p class="navbar-text">
+        <p class="navbar-text navbar-left">
           <strong id="playback-title"></strong>
           —
           <span id="playback-artist"></span>
