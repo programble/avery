@@ -7,6 +7,8 @@ config = {
 
   timeLeft: false,
 
+  keyPause: 'space',
+
   read: function(fn) {
     if (fs.existsSync('./config.json')) {
       fs.readFile('./config.json', function(err, data) {

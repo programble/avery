@@ -1,6 +1,12 @@
 var socket = io.connect(),
     config = {};
 
+function rebindKeys() {
+  Mousetrap.reset();
+
+  Mousetrap.bind(config.keyPause, function() { $('#pause').click(); });
+}
+
 socket.on('connect', function() {
   $('.setting').enable();
 });
@@ -16,6 +22,8 @@ socket.on('config', function(data) {
     }
     input.flashGroup('has-warning');
   });
+
+  rebindKeys();
 });
 
 socket.on('mpd connect', function(err) {

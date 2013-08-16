@@ -5,6 +5,8 @@ var _ = require('underscore'),
 
 app.use(express.logger());
 
+app.use(express.static(path.normalize(__dirname + '/../libs')));
+
 _.each({
   '/': 'ui.html',
   '/js/jquery': 'jquery.js',
