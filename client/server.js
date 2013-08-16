@@ -17,6 +17,8 @@ socket.on('config', function(data) {
     var input = $('#' + k);
     if (input.is(':checkbox')) {
       input.prop('checked', v);
+    } else if (input.is('.btn')) {
+      input.html(v);
     } else {
       input.val(v);
     }

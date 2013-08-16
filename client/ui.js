@@ -12,6 +12,23 @@ $('.setting').change(function() {
   });
 });
 
+$('.btn.setting').click(function() {
+  var btn = $(this)
+      key = btn.prop('id')
+      delta = {};
+  btn.addClass('active');
+  Mousetrap.record(function(seq) {
+    seq = seq.join(' ');
+    btn.removeClass('active');
+    btn.html(seq);
+    delta[key] = config[key] = seq;
+    socket.emit('config', delta, function() {
+      btn.flashGroup('has-success');
+      rebindKeys();
+    });
+  });
+});
+
 $('#reconnect').click(function() {
   $(this).disable();
   socket.emit('reconnect');

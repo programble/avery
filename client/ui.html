@@ -144,6 +144,17 @@
                 </div>
               </div>
             </fieldset>
+
+            <fieldset>
+              <legend>Keyboard Shortcuts</legend>
+
+              <div class="form-group">
+                <label class="col-md-2 control-label" for="keyPause">Pause</label>
+                <div class="col-md-10">
+                  <a id="keyPause" class="btn btn-default setting disabled"></a>
+                </div>
+              </div>
+            </fieldset>
           </form>
         </div>
 
@@ -168,7 +179,11 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/mousetrap/mousetrap.min.js"></script>
+    <script src="/mousetrap/plugins/record/mousetrap-record.min.js"></script>
+
     <script src="/js/jquery"></script>
     <script src="/js/favicon"></script>
     <script src="/js/server"></script>
