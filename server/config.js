@@ -5,6 +5,8 @@ config = {
   mpdHost: 'localhost',
   mpdPort: 6600,
 
+  timeLeft: false,
+
   read: function(fn) {
     if (fs.existsSync('./config.json')) {
       fs.readFile('./config.json', function(err, data) {
