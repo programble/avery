@@ -12,7 +12,8 @@ _.each({
   '/js/jquery': 'jquery.js',
   '/js/favicon': 'favicon.js',
   '/js/server': 'server.js',
-  '/js/ui': 'ui.js'
+  '/js/ui': 'ui.js',
+  '/js/keyboard': 'keyboard.js'
 }, function(file, url) {
   var filepath = path.normalize(__dirname + '/../client/' + file);
   app.get(url, function(req, res) {

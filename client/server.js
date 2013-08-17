@@ -1,12 +1,6 @@
 var socket = io.connect(),
     config = {};
 
-function rebindKeys() {
-  Mousetrap.reset();
-
-  Mousetrap.bind(config.keyPause, function() { $('#pause').click(); });
-}
-
 socket.on('connect', function() {
   $('#tab-bar').fadeIn();
   $('#playlist-tab').tab('show'); // TODO: Intelligently select playlist or library

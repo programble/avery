@@ -7,6 +7,9 @@ config = {
 
   timeLeft: false,
 
+  keyPlaylist: '1',
+  keyLibrary: '2',
+  keySettings: '3',
   keyPause: 'space',
 
   read: function(fn) {
