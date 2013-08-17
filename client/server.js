@@ -8,7 +8,8 @@ function rebindKeys() {
 }
 
 socket.on('connect', function() {
-  $('.setting').enable();
+  $('#tab-bar').fadeIn();
+  $('#playlist-tab').tab('show'); // TODO: Intelligently select playlist or library
 });
 
 socket.on('config', function(data) {
