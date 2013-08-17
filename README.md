@@ -5,7 +5,7 @@ Web MPD client
 ## Set up
 
 ```bash
-npm install -g bower # Install bower if you do not already have it
+npm install -g bower # Install Bower if you do not already have it
 
 npm install && bower install # Fetch dependencies
 
