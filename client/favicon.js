@@ -1,7 +1,7 @@
 var stopFavicon, playFavicon, pauseFavicon;
 
 function favicon(icon) {
-  $('#favicon').attr('href', icon);
+  $('#favicon').attr('href', icon).remove().appendTo('head');
 }
 
 $(function() {
