@@ -2,6 +2,19 @@
 
 Web MPD client
 
+## Set up
+
+```bash
+npm install -g bower # Install bower if you do not already have it
+
+npm install && bower install # Fetch dependencies
+
+node app # Launch Avery
+
+node app --headless # Start Avery's server without opening a browser
+node app --port 5510 # Start Avery's server on a different port
+```
+
 ## License
 
 Copyright © 2013, Curtis McEnroe <programble@gmail.com>
