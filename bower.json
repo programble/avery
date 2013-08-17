@@ -1,0 +1,10 @@
+{
+  "name": "avery",
+  "version": "0.1.0",
+  "dependencies": {
+    "jquery": "~ 2.0.0",
+    "bootstrap": "3.0.0-rc.2",
+    "font-awesome": ">= 3.2.1",
+    "mousetrap": "~ 1.4.0"
+  }
+}

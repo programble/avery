@@ -5,7 +5,7 @@ var _ = require('underscore'),
 
 app.use(express.logger());
 
-app.use(express.static(path.normalize(__dirname + '/../libs')));
+app.use(express.static(path.normalize(__dirname + '/../bower_components')));
 
 _.each({
   '/': 'ui.html',
