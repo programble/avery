@@ -21,7 +21,9 @@ function parseObject(data) {
 
 function parseList(data) {
   var list = [],
-      firstKey = parseLine(data)[0],
+      line = parseLine(data);
+  if (!line) return [];
+  var firstKey = parseLine(data)[0],
       obj;
   data.trim().split('\n').forEach(function(line) {
     var pair = parseLine(line);
