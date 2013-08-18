@@ -80,3 +80,19 @@ socket.on('mpd time', function(elapsed, total) {
   }
   $('#playback-progress').width(elapsed / total * 100 + '%');
 });
+
+socket.on('mpd playlist', function(playlist) {
+  $('#playlist table').toggleClass('in', !!playlist.length);
+  $('#shuffle,#clear').toggleClass('disabled', !playlist.length);
+
+  var tbody = $('#playlist table tbody').empty();
+  playlist.forEach(function(track) {
+    $('<tr>')
+      .prop('id', track.id)
+      .append($('<td>').html(track.artist))
+      .append($('<td>').html(track.title))
+      .append($('<td>').html(track.album))
+      .append($('<td>').html(formatDuration(track.time)))
+      .appendTo(tbody);
+  });
+});

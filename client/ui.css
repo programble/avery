@@ -25,3 +25,7 @@ a, tbody tr {
 #playback-progress {
   transition: none;
 }
+
+#playlist table {
+  margin-top: 20px;
+}
