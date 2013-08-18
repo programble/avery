@@ -73,7 +73,7 @@ function reconnect(fn) {
     }
   });
 
-  mpc.on('system-player', pollAll);
+  mpc.on('system-player', function() { pollStatus(); pollCurrent(); });
   mpc.on('system-options', pollStatus);
 }
 
