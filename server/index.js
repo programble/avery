@@ -45,9 +45,20 @@ function pollCurrent() {
   });
 }
 
+function pollPlaylist() {
+  mpc.listCmd('playlistinfo', function(err, data) {
+    if (err) {
+      io.sockets.emit('mpd error', err);
+    } else {
+      io.sockets.emit('mpd playlist', data);
+    }
+  });
+}
+
 function pollAll(force) {
   pollStatus(force);
   pollCurrent(force);
+  pollPlaylist(force);
 }
 
 function pollAllForce() { pollAll(true); }
@@ -75,6 +86,7 @@ function reconnect(fn) {
 
   mpc.on('system-player', function() { pollStatus(); pollCurrent(); });
   mpc.on('system-options', pollStatus);
+  mpc.on('system-playlist', pollPlaylist);
 }
 
 io.sockets.on('connection', function(socket) {
