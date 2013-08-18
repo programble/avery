@@ -9,6 +9,7 @@ app.use(express.static(path.normalize(__dirname + '/../bower_components')));
 
 _.each({
   '/': 'ui.html',
+  '/css': 'ui.css',
   '/js/jquery': 'jquery.js',
   '/js/favicon': 'favicon.js',
   '/js/server': 'server.js',
