@@ -19,6 +19,13 @@ function rebindKeys() {
     $('#pause').click();
   }));
 
+  Mousetrap.bind(config.keyShuffle, falsify(function() {
+    $('#shuffle').click();
+  }));
+  Mousetrap.bind(config.keyClear, falsify(function() {
+    $('#clear').click();
+  }));
+
   Mousetrap.bind(config.keyRandom, falsify(function() {
     $('#random').click();
   }));

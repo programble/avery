@@ -111,6 +111,12 @@ io.sockets.on('connection', function(socket) {
       mpc.cmd(mode, +!mpc.lastMode[mode]);
     });
   });
+
+  ['shuffle', 'clear'].forEach(function(cmd) {
+    socket.on(cmd, function() {
+      mpc.cmd(cmd);
+    });
+  });
 });
 
 module.exports = function(port) {

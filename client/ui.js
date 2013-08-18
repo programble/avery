@@ -34,13 +34,15 @@ $('#reconnect').click(function() {
   socket.emit('reconnect');
 });
 
-$('#pause').click(function() {
-  socket.emit('pause');
-});
-
 $('#playback-total').click(function() {
   $('#timeLeft').prop('checked', !config.timeLeft).change();
   socket.emit('status');
+});
+
+['pause', 'shuffle', 'clear'].forEach(function(btn) {
+  $('#' + btn).click(function() {
+    socket.emit(btn);
+  });
 });
 
 ['random', 'repeat', 'consume'].forEach(function(btn) {
