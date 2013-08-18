@@ -18,4 +18,14 @@ function rebindKeys() {
   Mousetrap.bind(config.keyPause, falsify(function() {
     $('#pause').click();
   }));
+
+  Mousetrap.bind(config.keyRandom, falsify(function() {
+    $('#random').click();
+  }));
+  Mousetrap.bind(config.keyRepeat, falsify(function() {
+    $('#repeat').click();
+  }));
+  Mousetrap.bind(config.keyConsume, falsify(function() {
+    $('#consume').click();
+  }));
 }
