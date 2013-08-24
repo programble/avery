@@ -13,17 +13,25 @@ a, tbody tr {
 
 .navbar-progress {
   float: left;
-  margin: 15px 5px;
+  margin: 15px 0;
   width: 200px;
 }
 
 #pause {
   width: 38px;
-  margin-right: 15px;
 }
 
 #playback-progress {
   transition: none;
+}
+
+#playback-elapsed {
+  margin-right: 5px;
+}
+
+#playback-total {
+  margin-left: 5px;
+  margin-right: 0;
 }
 
 #playlist table {
