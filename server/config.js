@@ -14,8 +14,8 @@ config = {
   keyRandom: 'm r',
   keyRepeat: 'm R',
   keyConsume: 'm c',
-  keyShuffle: 's',
-  keyClear: 'c',
+  keyShuffle: 'p s',
+  keyClear: 'p c',
 
   read: function(fn) {
     if (fs.existsSync('./config.json')) {
