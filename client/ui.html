@@ -36,39 +36,35 @@
       </div>
     </div>
 
-    <div id="tab-bar" class="navbar navbar-fixed-top navbar-default fade">
-      <div class="container">
-        <ul class="nav navbar-nav">
-          <li><a id="playlist-tab" data-toggle="tab" data-target="#playlist">
-            <i class="icon-list"></i> Playlist
-          </a></li>
-
-          <li><a id="library-tab" data-toggle="tab" data-target="#library">
-            <i class="icon-book"></i> Library
-          </a></li>
-
-          <li class="dropdown navbar-right">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-              <i class="icon-cogs"></i>
-            </a>
-
-            <ul class="dropdown-menu pull-right">
-              <li><a id="settings-tab" data-toggle="tab" data-target="#settings">
-                <i class="icon-fixed-width icon-cog"></i> Settings
-              </a></li>
-
-              <li class="divider"></li>
-
-              <li><a data-toggle="tab" data-target="#about">
-                <i class="icon-fixed-width icon-info-sign"></i> About
-              </a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-
     <div class="container">
+      <ul id="tab-bar" class="nav nav-pills fade">
+        <li><a id="playlist-tab" data-toggle="tab" data-target="#playlist">
+          <i class="icon-list"></i> Playlist
+        </a></li>
+
+        <li><a id="library-tab" data-toggle="tab" data-target="#library">
+          <i class="icon-book"></i> Library
+        </a></li>
+
+        <li class="dropdown pull-right">
+          <a class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-cogs"></i>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li><a id="settings-tab" data-toggle="tab" data-target="#settings">
+              <i class="icon-fixed-width icon-cog"></i> Settings
+            </a></li>
+
+            <li class="divider"></li>
+
+            <li><a data-toggle="tab" data-target="#about">
+              <i class="icon-fixed-width icon-info-sign"></i> About
+            </a></li>
+          </ul>
+        </li>
+      </ul>
+
       <div class="tab-content">
         <div class="tab-pane active fade in text-center">
           <i class="icon-spin icon-4x icon-refresh"></i>
