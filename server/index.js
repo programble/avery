@@ -46,6 +46,7 @@ function pollCurrent() {
 }
 
 function pollPlaylist() {
+  if (!connected) return;
   mpc.listCmd('playlistinfo', function(err, data) {
     if (err) {
       io.sockets.emit('mpd error', err);
