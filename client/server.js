@@ -1,5 +1,6 @@
 var socket = io.connect(),
-    config = {};
+    config = {},
+    currentTrack;
 
 socket.on('connect', function() {
   $('#tab-bar').fadeIn();
@@ -41,7 +42,10 @@ socket.on('mpd state', function(state) {
   if (state == 'stop') {
     document.title = 'Avery';
     favicon(stopFavicon);
-    return $('#playback-bar').fadeOut();
+    $('#playback-bar').fadeOut();
+    currentTrack = null;
+    highlightCurrent();
+    return;
   }
 
   favicon(state == 'play' ? playFavicon : pauseFavicon);
@@ -57,9 +61,11 @@ socket.on('mpd mode', function(mode) {
 });
 
 socket.on('mpd current', function(track) {
+  currentTrack = track;
   $('#playback-title').html(track.title);
   $('#playback-artist').html(track.artist);
   document.title = track.title + ' — ' + track.artist;
+  highlightCurrent();
 });
 
 function formatDuration(secs) {
@@ -81,6 +87,12 @@ socket.on('mpd time', function(elapsed, total) {
   $('#playback-progress').width(elapsed / total * 100 + '%');
 });
 
+function highlightCurrent() {
+  $('#playlist tr').removeClass('success');
+  if (currentTrack)
+    $('#' + currentTrack.id).addClass('success');
+}
+
 socket.on('mpd playlist', function(playlist) {
   $('#playlist table').toggleClass('in', !!playlist.length);
   $('#shuffle,#clear').toggleClass('disabled', !playlist.length);
@@ -95,4 +107,6 @@ socket.on('mpd playlist', function(playlist) {
       .append($('<td>').html(formatDuration(track.time)))
       .appendTo(tbody);
   });
+
+  highlightCurrent();
 });
